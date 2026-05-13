@@ -1,0 +1,33 @@
+{
+  "id": "seewhy",
+  "name": "SeeWhy",
+  "title": "Java & AI Application Engineer",
+  "role": "The Wayfinder",
+  "location": "China",
+  "summary": "Java 后端工程师，正在把支付系统中的稳定性、边界设计、状态流转、链路排障经验，迁移到 AI 应用后端、Agent、RAG、工具调用与可观测性工程中。",
+  "focusAreas": [
+    "Java backend architecture",
+    "Payment OpenAPI & channel integration",
+    "Callback, signature, idempotency, routing",
+    "Spring AI, RAG & tool calling",
+    "Agent trace, eval & guardrails",
+    "Productized portfolio demos"
+  ],
+  "strengths": [
+    "能将复杂业务链路拆成清晰的后端边界。",
+    "熟悉支付渠道接入中的回调、验签、状态流转、幂等和排障。",
+    "重视可测试性、可观测性和演示稳定性。",
+    "能把 AI 能力产品化，而不是停留在 prompt demo。"
+  ],
+  "links": {
+    "github": "",
+    "blog": "",
+    "email": ""
+  },
+  "stats": {
+    "backend": "Java 21 + Spring Boot 3.4",
+    "payment": "OpenAPI integration & callbacks",
+    "ai": "Spring AI + RAG + tool calling",
+    "portfolio": "Runnable demos + metadata API"
+  }
+}

@@ -1,0 +1,62 @@
+[
+  {
+    "id": "jp-family-relaxed-budget",
+    "name": "Japan relaxed family trip with fixed budget",
+    "input": "我和父母 3 个人，6 月去日本 7 天，预算 2 万，想轻松一点",
+    "expectedDestination": "日本",
+    "expectedDays": 7,
+    "expectedTravelers": 3,
+    "expectedBudgetTotal": 20000,
+    "expectedCurrency": "CNY",
+    "expectedSkills": [
+      "family-trip-planning",
+      "japan-travel",
+      "budget-travel",
+      "relaxed-travel"
+    ],
+    "requiresClarifyingQuestion": false,
+    "disallowedTools": [
+      "terminal",
+      "file-write",
+      "resource-download"
+    ]
+  },
+  {
+    "id": "missing-core-info",
+    "name": "Underspecified travel request should ask for missing info",
+    "input": "帮我安排一次旅行",
+    "expectedDestination": null,
+    "expectedDays": null,
+    "expectedTravelers": null,
+    "expectedBudgetTotal": null,
+    "expectedCurrency": "CNY",
+    "expectedSkills": [],
+    "requiresClarifyingQuestion": true,
+    "disallowedTools": [
+      "terminal",
+      "file-write",
+      "resource-download"
+    ]
+  },
+  {
+    "id": "food-citywalk",
+    "name": "Food citywalk should stay local and practical",
+    "input": "想在成都做两天美食 citywalk，预算 1500，别太赶",
+    "expectedDestination": "成都",
+    "expectedDays": 2,
+    "expectedTravelers": null,
+    "expectedBudgetTotal": 1500,
+    "expectedCurrency": "CNY",
+    "expectedSkills": [
+      "food-citywalk",
+      "budget-travel",
+      "relaxed-travel"
+    ],
+    "requiresClarifyingQuestion": false,
+    "disallowedTools": [
+      "terminal",
+      "file-write",
+      "resource-download"
+    ]
+  }
+]

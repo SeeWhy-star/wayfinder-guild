@@ -1,0 +1,271 @@
+{
+  "id": "wayfinder-guild",
+  "name": "Wayfinder Guild",
+  "role": "The Wayfinder / 寻路者",
+  "style": "Warm Cosmic Travel",
+  "taglineEn": "Where AI finds its way.",
+  "taglineZh": "让 AI 找到正确的路。",
+  "positioningZh": "一座温暖的星海旅行小镇，用来展示 Agent、RAG、Skills、Eval、Trace 与 Guardrails 如何落成真实的 AI 工程系统。",
+  "welcome": "Welcome to Wayfinder Guild.\n\n这里不是一份普通简历，\n而是一座可以探索的 AI 工程小镇。\n\n你可以像寻路者一样，\n体验旅行 Agent、工具调用、RAG 检索、Skills、Eval 与 Agent Trace，\n看见 AI 如何一步步找到正确的路。",
+  "quickRoutes": [
+    {
+      "id": "view-resume",
+      "labelEn": "View Resume",
+      "labelZh": "查看简历",
+      "targetType": "area",
+      "targetId": "profile-journal",
+      "path": "/profile"
+    },
+    {
+      "id": "try-travel-agent",
+      "labelEn": "Try Travel Agent",
+      "labelZh": "体验旅行 Agent",
+      "targetType": "area",
+      "targetId": "travel-cabin",
+      "path": "/travel"
+    },
+    {
+      "id": "explore-projects",
+      "labelEn": "Explore Projects",
+      "labelZh": "浏览项目作品",
+      "targetType": "area",
+      "targetId": "voyage-forge",
+      "path": "/projects"
+    },
+    {
+      "id": "read-architecture",
+      "labelEn": "Read Architecture",
+      "labelZh": "阅读系统架构",
+      "targetType": "module",
+      "targetId": "agentic-travel-backend",
+      "path": "/architecture"
+    },
+    {
+      "id": "view-agent-trace",
+      "labelEn": "View Agent Trace",
+      "labelZh": "查看执行轨迹",
+      "targetType": "area",
+      "targetId": "eval-lighthouse",
+      "path": "/trace"
+    }
+  ],
+  "areas": [
+    {
+      "id": "starlit-square",
+      "nameEn": "Starlit Square",
+      "nameZh": "星灯广场",
+      "type": "entry",
+      "description": "小镇入口与快速导览，帮助访客理解 Wayfinder Guild 的地图、路线和核心体验。",
+      "position": { "x": 50, "y": 50 },
+      "npcIds": ["guild-greeter"],
+      "moduleIds": ["rpg-portfolio-backend"],
+      "portals": [
+        { "id": "to-profile", "labelEn": "Profile Journal", "labelZh": "旅人手记", "targetAreaId": "profile-journal", "path": "/profile" },
+        { "id": "to-travel", "labelEn": "Travel Cabin", "labelZh": "Wayfinder 小屋", "targetAreaId": "travel-cabin", "path": "/travel" }
+      ]
+    },
+    {
+      "id": "profile-journal",
+      "nameEn": "Profile Journal",
+      "nameZh": "旅人手记",
+      "type": "profile",
+      "description": "个人简介、技术方向和求职叙事的安静角落。",
+      "position": { "x": 25, "y": 28 },
+      "npcIds": ["journal-keeper"],
+      "moduleIds": [],
+      "portals": []
+    },
+    {
+      "id": "travel-cabin",
+      "nameEn": "Travel Cabin",
+      "nameZh": "Wayfinder 小屋",
+      "type": "agent-demo",
+      "description": "Travel Agent 演示舱，展示流式对话、结构化 TravelPlan、预算拆分、风险提示与前端卡片渲染。",
+      "position": { "x": 70, "y": 32 },
+      "npcIds": ["travel-guide"],
+      "moduleIds": ["travel-agent", "structured-plan"],
+      "portals": [
+        { "id": "to-trace", "labelEn": "Trace Path", "labelZh": "查看轨迹", "targetAreaId": "eval-lighthouse", "path": "/trace" }
+      ]
+    },
+    {
+      "id": "tool-workshop",
+      "nameEn": "Tool Workshop",
+      "nameZh": "百工工坊",
+      "type": "tooling",
+      "description": "受控后端工具 Agent 演示工坊。展示受控工具、安全产物、可追踪执行三类工程能力：固定公开 demo、临时 artifact 链接、后端工具调用状态反馈。",
+      "position": { "x": 82, "y": 58 },
+      "npcIds": ["tool-smith"],
+      "moduleIds": ["tool-agent", "guarded-tools"],
+      "portals": []
+    },
+    {
+      "id": "memory-library",
+      "nameEn": "Memory Library",
+      "nameZh": "记忆图书馆",
+      "type": "rag",
+      "description": "RAG 检索展示区，用旅行知识库说明检索增强生成的工程落地方式。",
+      "position": { "x": 36, "y": 68 },
+      "npcIds": ["memory-librarian"],
+      "moduleIds": ["rag-memory"],
+      "portals": []
+    },
+    {
+      "id": "constellation-hall",
+      "nameEn": "Constellation Hall",
+      "nameZh": "星座大厅",
+      "type": "skills",
+      "description": "Skills 系统展示区，把可复用领域经验整理成可加载、可选择、可演化的工程资源。",
+      "position": { "x": 58, "y": 75 },
+      "npcIds": ["skill-cartographer"],
+      "moduleIds": ["skills-system"],
+      "portals": []
+    },
+    {
+      "id": "eval-lighthouse",
+      "nameEn": "Eval Lighthouse",
+      "nameZh": "质量灯塔",
+      "type": "quality",
+      "description": "Eval Harness 与 Agent Trace 展示区，用可观察性和用例集照亮 Agent 的质量边界。",
+      "position": { "x": 88, "y": 18 },
+      "npcIds": ["lighthouse-auditor"],
+      "moduleIds": ["eval-harness", "agent-trace"],
+      "portals": []
+    },
+    {
+      "id": "voyage-forge",
+      "nameEn": "Voyage Forge",
+      "nameZh": "远航工坊",
+      "type": "projects",
+      "description": "项目作品展示区，用工程案例说明从想法到可运行系统的建造过程。",
+      "position": { "x": 18, "y": 58 },
+      "npcIds": ["project-blacksmith"],
+      "moduleIds": ["rpg-portfolio-backend"],
+      "portals": []
+    },
+    {
+      "id": "scroll-tower",
+      "nameEn": "Scroll Tower",
+      "nameZh": "观星塔",
+      "type": "writing",
+      "description": "技术博客与思考区，用清晰文章解释架构选择、调试经验和产品判断。",
+      "position": { "x": 44, "y": 16 },
+      "npcIds": ["scroll-keeper"],
+      "moduleIds": [],
+      "portals": []
+    },
+    {
+      "id": "tavern-board",
+      "nameEn": "Tavern Board",
+      "nameZh": "旅人驿站",
+      "type": "contact",
+      "description": "留言与联系方式，方便访客留下问题、机会或后续交流线索。",
+      "position": { "x": 64, "y": 12 },
+      "npcIds": ["tavern-host"],
+      "moduleIds": [],
+      "portals": []
+    }
+  ],
+  "npcs": [
+    {
+      "id": "guild-greeter",
+      "nameEn": "Guild Greeter",
+      "nameZh": "星灯引路员",
+      "role": "入口导览",
+      "areaId": "starlit-square",
+      "greeting": "欢迎来到 Wayfinder Guild。先看一眼地图，再选一条你感兴趣的航线吧。",
+      "persona": "温和、清晰、适合快速介绍站点结构。",
+      "actions": ["show-quick-routes", "explain-world"]
+    },
+    {
+      "id": "journal-keeper",
+      "nameEn": "Journal Keeper",
+      "nameZh": "手记管理员",
+      "role": "个人档案讲述者",
+      "areaId": "profile-journal",
+      "greeting": "这里记录寻路者的工程背景、技术偏好和求职方向。",
+      "persona": "像整理旅行手账一样整理职业叙事。",
+      "actions": ["show-profile", "show-resume"]
+    },
+    {
+      "id": "travel-guide",
+      "nameEn": "Travel Guide",
+      "nameZh": "Wayfinder 向导",
+      "role": "旅行 Agent 讲解员",
+      "areaId": "travel-cabin",
+      "greeting": "告诉我目的地、天数和偏好，我会把路线、预算和风险拆成可读的计划。",
+      "persona": "专业、耐心、擅长把模糊需求整理成结构化计划。",
+      "actions": ["start-travel-plan", "show-sample-plan"]
+    },
+    {
+      "id": "tool-smith",
+      "nameEn": "Tool Smith",
+      "nameZh": "百工匠",
+      "role": "工具调用讲解员",
+      "areaId": "tool-workshop",
+      "greeting": "工具很强，但边界更重要。这里展示 SyManus 如何安全地使用外部能力。",
+      "persona": "务实、谨慎、关注工具权限和执行结果。",
+      "actions": ["show-tool-agent", "show-guarded-tools"]
+    },
+    {
+      "id": "memory-librarian",
+      "nameEn": "Memory Librarian",
+      "nameZh": "记忆馆员",
+      "role": "RAG 检索讲解员",
+      "areaId": "memory-library",
+      "greeting": "当模型需要可靠上下文时，先让它翻到正确的书页。",
+      "persona": "安静、细致、重视来源和上下文。",
+      "actions": ["show-rag-flow", "ask-knowledge-base"]
+    },
+    {
+      "id": "skill-cartographer",
+      "nameEn": "Skill Cartographer",
+      "nameZh": "星图绘制师",
+      "role": "Skills 系统讲解员",
+      "areaId": "constellation-hall",
+      "greeting": "每个 Skill 都像一颗星，组合起来就是 Agent 可以遵循的航线。",
+      "persona": "善于把领域经验抽象成可复用规则。",
+      "actions": ["show-skills", "explain-skill-selection"]
+    },
+    {
+      "id": "lighthouse-auditor",
+      "nameEn": "Lighthouse Auditor",
+      "nameZh": "灯塔审查员",
+      "role": "质量与轨迹讲解员",
+      "areaId": "eval-lighthouse",
+      "greeting": "好的 Agent 不只会回答，还要能被观察、评估和复盘。",
+      "persona": "冷静、严谨、关注质量闭环。",
+      "actions": ["show-evals", "show-agent-trace"]
+    },
+    {
+      "id": "project-blacksmith",
+      "nameEn": "Project Blacksmith",
+      "nameZh": "项目锻造师",
+      "role": "作品集讲述者",
+      "areaId": "voyage-forge",
+      "greeting": "每个项目都是一次远航，这里看的是问题、架构、取舍和结果。",
+      "persona": "直接、工程化、强调可运行成果。",
+      "actions": ["show-projects", "show-architecture"]
+    },
+    {
+      "id": "scroll-keeper",
+      "nameEn": "Scroll Keeper",
+      "nameZh": "卷轴守望者",
+      "role": "技术写作讲解员",
+      "areaId": "scroll-tower",
+      "greeting": "工程经验需要被写清楚，才会变成可迁移的判断力。",
+      "persona": "清爽、克制、适合介绍技术文章。",
+      "actions": ["show-posts", "show-notes"]
+    },
+    {
+      "id": "tavern-host",
+      "nameEn": "Tavern Host",
+      "nameZh": "驿站招待",
+      "role": "联系入口",
+      "areaId": "tavern-board",
+      "greeting": "如果你想聊 Agent 工程、后端架构或合作机会，可以在这里找到联系方式。",
+      "persona": "轻松、友好、负责收束交流。",
+      "actions": ["show-contact", "leave-message"]
+    }
+  ]
+}

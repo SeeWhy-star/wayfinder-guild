@@ -1,0 +1,56 @@
+[
+  {
+    "id": "java-backend-architecture",
+    "name": "Java Backend Architecture",
+    "category": "Backend",
+    "level": "advanced",
+    "description": "用清晰分层、稳定接口和可测试服务组织 Java 后端系统。",
+    "areaId": "voyage-forge",
+    "keywords": ["Java 21", "Spring Boot", "DDD-lite", "REST API"]
+  },
+  {
+    "id": "spring-ai-agent-design",
+    "name": "Spring AI Agent Design",
+    "category": "Agent",
+    "level": "advanced",
+    "description": "基于 Spring AI 构建对话、结构化输出、工具调用和可观测 Agent 流程。",
+    "areaId": "travel-cabin",
+    "keywords": ["Spring AI", "DeepSeek", "ChatClient", "Tool Calling"]
+  },
+  {
+    "id": "rag-knowledge-engineering",
+    "name": "RAG Knowledge Engineering",
+    "category": "RAG",
+    "level": "intermediate",
+    "description": "把知识文档、检索上下文和模型回答组合成可解释的问答体验。",
+    "areaId": "memory-library",
+    "keywords": ["RAG", "Vector Store", "Knowledge Base", "Retrieval"]
+  },
+  {
+    "id": "agent-evaluation",
+    "name": "Agent Evaluation",
+    "category": "Quality",
+    "level": "intermediate",
+    "description": "用评测用例、质量标准和回归测试守住 Agent 输出的可用性。",
+    "areaId": "eval-lighthouse",
+    "keywords": ["Eval Harness", "Regression", "Quality Gates"]
+  },
+  {
+    "id": "guardrail-design",
+    "name": "Guardrail Design",
+    "category": "Safety",
+    "level": "intermediate",
+    "description": "在输入、工具和输出阶段设置边界，让 AI 系统更稳定可信。",
+    "areaId": "tool-workshop",
+    "keywords": ["Guardrails", "Risk Control", "Input Validation", "Output Sanitization"]
+  },
+  {
+    "id": "fullstack-product-sense",
+    "name": "Full-stack Product Sense",
+    "category": "Product",
+    "level": "intermediate",
+    "description": "从用户路径、信息结构和可演示体验出发设计工程作品集。",
+    "areaId": "starlit-square",
+    "keywords": ["Vue", "Vite", "UX", "Portfolio"]
+  }
+]

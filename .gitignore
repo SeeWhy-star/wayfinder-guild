@@ -1,0 +1,102 @@
+HELP.md
+
+### Build outputs ###
+target/
+**/target/
+dist/
+**/dist/
+build/
+**/build/
+out/
+**/out/
+coverage/
+**/coverage/
+.cache/
+**/.cache/
+.vite/
+**/.vite/
+.mvn/wrapper/maven-wrapper.jar
+!**/src/main/**/target/
+!**/src/test/**/target/
+!**/src/main/**/build/
+!**/src/test/**/build/
+
+### Java / Spring tool noise ###
+.apt_generated
+.classpath
+.factorypath
+.project
+.settings
+.springBeans
+.sts4-cache
+
+### IDEs ###
+.idea/
+.vscode/
+*.iws
+*.iml
+*.ipr
+/nbproject/private/
+/nbbuild/
+/dist/
+/nbdist/
+/.nb-gradle/
+
+### Local sensitive config - do not commit ###
+**/application-local.yml
+**/application-local.yaml
+**/application-*.local.yml
+**/application-*.local.yaml
+.env
+.env.*
+!.env.example
+.env.local
+.env.*.local
+.envrc
+secrets/
+*.pem
+*.key
+*.p8
+*.crt
+*.p12
+*.pfx
+*.jks
+*.keystore
+
+### Frontend ###
+node_modules/
+**/node_modules/
+frontend/node_modules/
+frontend/dist/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+### Runtime and generated files - do not commit ###
+data/
+tmp/
+temp/
+*.log
+logs/
+*.tmp
+*.bak
+*.pid
+*.kryo
+*.ser
+*.sqlite
+*.sqlite3
+*.db
+
+### Demo artifacts and local downloads ###
+docs/screenshots/
+**/screenshots/
+**/download/
+**/downloads/
+
+### OS noise ###
+.DS_Store
+Thumbs.db
+
+### Local private notes and demo artifacts ###
+private-docs/

@@ -1,0 +1,82 @@
+spring:
+  application:
+    name: wayfinder-guild
+
+  datasource:
+    # 数据库连接（敏感信息请使用环境变量或 application-local.yml，勿提交到 Git）
+    url: ${DB_URL:jdbc:postgresql://localhost:5432/your_db}
+    username: ${DB_USERNAME:postgres}
+    password: ${DB_PASSWORD:}
+    driver-class-name: org.postgresql.Driver
+
+  ai:
+    openai:
+      # Non-secret placeholder keeps public Demo Mode bootable; set DEEPSEEK_API_KEY for Owner Live Mode.
+      api-key: ${DEEPSEEK_API_KEY:demo-disabled}
+      base-url: ${DEEPSEEK_BASE_URL:https://api.deepseek.com}
+      chat:
+        options:
+          model: ${DEEPSEEK_CHAT_MODEL:deepseek-chat}
+    # MCP 客户端：启用后会在启动时连接/拉起 MCP 服务，若服务未就绪会导致启动超时失败。
+  # 需要时取消注释，并先确保：SSE 模式已启动 sy-image-search-mcp（端口 8127）；或 stdio 模式已构建 jar 且 amap 需 npx。
+#  mcp:
+#    client:
+#      sse:
+#        connections:
+#          server1:
+#            url: http://localhost:8127
+#      stdio:
+#        servers-configuration: classpath:mcp-servers.json
+
+server:
+  port: 8123
+  servlet:
+    context-path: /api
+# springdoc-openapi
+springdoc:
+  api-docs:
+    enabled: ${SPRINGDOC_API_DOCS_ENABLED:false}
+    path: /v3/api-docs
+  swagger-ui:
+    enabled: ${SPRINGDOC_SWAGGER_UI_ENABLED:false}
+    path: /swagger-ui.html
+    tags-sorter: alpha
+    operations-sorter: alpha
+  group-configs:
+    - group: "default"
+      paths-to-match: "/**"
+      packages-to-scan: com.seewhy.syaiagent.controller
+# knife4j
+knife4j:
+  enable: ${KNIFE4J_ENABLE:false}
+  setting:
+    language: zh_cn
+
+search:
+  provider: ${SEARCH_PROVIDER:disabled}
+
+tavily:
+  api-key: ${TAVILY_API_KEY:}
+
+# Pexels 图片搜索（SyManus 搜索/下载图片用）
+pexels:
+  api-key: ${PEXELS_API_KEY:}
+# 修改日志级别，查看 Spring AI 更多调用细节
+logging:
+  level:
+    org.springframework.ai: ${LOGGING_LEVEL_ORG_SPRINGFRAMEWORK_AI:INFO}
+    com.seewhy.syaiagent: ${LOGGING_LEVEL_COM_SEEWHY_SYAIAGENT:INFO}
+
+wayfinder:
+  demo:
+    enabled: ${WAYFINDER_DEMO_ENABLED:true}
+  security:
+    owner-token: ${WAYFINDER_OWNER_TOKEN:}
+  cors:
+    allowed-origin-patterns: ${WAYFINDER_CORS_ALLOWED_ORIGIN_PATTERNS:http://localhost:5173}
+
+travel:
+  rag:
+    # Public production default avoids PgVector/cloud database cost.
+    # Supported values: demo, lightweight, pgvector.
+    mode: ${TRAVEL_RAG_MODE:demo}

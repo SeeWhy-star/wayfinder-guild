@@ -1,0 +1,54 @@
+# Local sensitive configuration example.
+# Copy this file to application-local.yml and fill in real values.
+# application-local.yml is ignored by .gitignore and must not be committed.
+#
+# You can also configure everything with environment variables:
+#   DB_URL, DB_USERNAME, DB_PASSWORD
+#   DEEPSEEK_API_KEY, DEEPSEEK_BASE_URL, DEEPSEEK_CHAT_MODEL
+#   SEARCH_PROVIDER, TAVILY_API_KEY, PEXELS_API_KEY
+#   WAYFINDER_DEMO_ENABLED=false
+#   WAYFINDER_OWNER_TOKEN=your-long-random-owner-token
+spring:
+  datasource:
+    url: jdbc:postgresql://your-host:5432/your_db
+    username: your_username
+    password: your_password
+
+  ai:
+    openai:
+      api-key: ${DEEPSEEK_API_KEY:your-deepseek-api-key}
+      base-url: ${DEEPSEEK_BASE_URL:https://api.deepseek.com}
+      chat:
+        options:
+          model: ${DEEPSEEK_CHAT_MODEL:deepseek-chat}
+
+search:
+  provider: ${SEARCH_PROVIDER:tavily}
+
+tavily:
+  api-key: ${TAVILY_API_KEY:}
+
+pexels:
+  api-key: ${PEXELS_API_KEY:}
+
+wayfinder:
+  demo:
+    enabled: ${WAYFINDER_DEMO_ENABLED:false}
+  security:
+    owner-token: ${WAYFINDER_OWNER_TOKEN:}
+  cors:
+    allowed-origin-patterns: ${WAYFINDER_CORS_ALLOWED_ORIGIN_PATTERNS:http://localhost:5173}
+
+springdoc:
+  api-docs:
+    enabled: ${SPRINGDOC_API_DOCS_ENABLED:true}
+  swagger-ui:
+    enabled: ${SPRINGDOC_SWAGGER_UI_ENABLED:true}
+
+knife4j:
+  enable: ${KNIFE4J_ENABLE:true}
+
+logging:
+  level:
+    org.springframework.ai: ${LOGGING_LEVEL_ORG_SPRINGFRAMEWORK_AI:DEBUG}
+    com.seewhy.syaiagent: ${LOGGING_LEVEL_COM_SEEWHY_SYAIAGENT:INFO}

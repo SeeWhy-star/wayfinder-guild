@@ -1,0 +1,92 @@
+[
+  {
+    "id": "agentic-travel-backend",
+    "name": "Agentic Travel Backend",
+    "displayName": "Agentic Travel Backend",
+    "description": "The core travel-planning backend for conversations, structured plans, reports, RAG, and tool collaboration.",
+    "capabilities": ["chat", "structured-plan", "report-generation", "rag", "tool-calling"],
+    "endpoints": ["/api/travel/chat", "/api/travel/plan", "/api/travel/report", "/api/travel/rag"],
+    "relatedProjectIds": ["wayfinder-guild"]
+  },
+  {
+    "id": "travel-agent",
+    "name": "Travel Agent",
+    "displayName": "Travel Planning Agent",
+    "description": "Turns travel requirements into destinations, itinerary days, budget, transportation, accommodation, risks, and alternatives.",
+    "capabilities": ["requirement-collection", "itinerary-planning", "budget-estimation", "risk-advice"],
+    "endpoints": ["/api/travel/plan"],
+    "relatedProjectIds": ["wayfinder-guild"]
+  },
+  {
+    "id": "structured-plan",
+    "name": "Structured Plan",
+    "displayName": "Structured TravelPlan",
+    "description": "A frontend-ready structured travel plan model for cards, reports, and fallback demos.",
+    "capabilities": ["schema-output", "ui-ready-data", "fallback-plan"],
+    "endpoints": ["/api/travel/plan"],
+    "relatedProjectIds": ["wayfinder-guild"]
+  },
+  {
+    "id": "skills-system",
+    "name": "Skills System",
+    "displayName": "Skills System",
+    "description": "Loads travel-domain skills from classpath Markdown and injects selected guidance into the agent flow.",
+    "capabilities": ["skill-loading", "skill-selection", "domain-rules"],
+    "endpoints": [],
+    "relatedProjectIds": ["wayfinder-guild"]
+  },
+  {
+    "id": "rag-memory",
+    "name": "RAG Memory",
+    "displayName": "RAG Memory",
+    "description": "Uses travel knowledge retrieval to make answers more grounded and explainable.",
+    "capabilities": ["retrieval", "grounded-answering", "knowledge-context"],
+    "endpoints": ["/api/travel/rag"],
+    "relatedProjectIds": ["wayfinder-guild"]
+  },
+  {
+    "id": "tool-agent",
+    "name": "Tool Agent",
+    "displayName": "SyManus Tool Agent",
+    "description": "Extends agent behavior with search, files, terminal, downloads, and content-processing tools.",
+    "capabilities": ["tool-calling", "streaming-execution", "multi-turn-context"],
+    "endpoints": ["/api/travel/manus/chat"],
+    "relatedProjectIds": ["symanus-tool-agent"]
+  },
+  {
+    "id": "guarded-tools",
+    "name": "Guarded Tools",
+    "displayName": "Guarded Tools",
+    "description": "Adds validation and boundaries around tool calls to reduce unsafe input or unauthorized execution.",
+    "capabilities": ["input-guardrail", "tool-boundary", "risk-reduction"],
+    "endpoints": [],
+    "relatedProjectIds": ["symanus-tool-agent", "wayfinder-guild"]
+  },
+  {
+    "id": "eval-harness",
+    "name": "Eval Harness",
+    "displayName": "Eval Harness",
+    "description": "Scores travel-agent output against configurable cases and quality dimensions for regression protection.",
+    "capabilities": ["eval-cases", "quality-scoring", "regression-check"],
+    "endpoints": [],
+    "relatedProjectIds": ["wayfinder-guild"]
+  },
+  {
+    "id": "agent-trace",
+    "name": "Agent Trace",
+    "displayName": "Agent Trace",
+    "description": "Records key steps from intent detection through skill loading, planning, budget, risk checks, and reporting.",
+    "capabilities": ["observability", "trace-streaming", "debugging"],
+    "endpoints": ["/api/travel/trace/{chatId}", "/api/travel/trace/{chatId}/stream"],
+    "relatedProjectIds": ["wayfinder-guild"]
+  },
+  {
+    "id": "rpg-portfolio-backend",
+    "name": "Wayfinder Portfolio Backend",
+    "displayName": "Wayfinder Portfolio Backend",
+    "description": "Provides map, NPC, project, skill, module, and profile metadata for Wayfinder Guild.",
+    "capabilities": ["world-metadata", "npc-query", "portfolio-api", "frontend-ready-json"],
+    "endpoints": ["/api/rpg/world", "/api/rpg/npcs", "/api/rpg/projects", "/api/rpg/skills", "/api/rpg/modules", "/api/rpg/profile"],
+    "relatedProjectIds": ["wayfinder-guild"]
+  }
+]
