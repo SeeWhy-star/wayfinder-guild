@@ -9,6 +9,8 @@ import RagLibraryPage from '../views/RagLibraryPage.vue'
 import TravelChat from '../views/TravelChat.vue'
 import ManusChat from '../views/ManusChat.vue'
 import PortfolioPage from '../views/PortfolioPage.vue'
+import BlogPage from '../views/BlogPage.vue'
+import BlogPostPage from '../views/BlogPostPage.vue'
 
 const page = (props) => ({
   component: PortfolioPage,
@@ -28,20 +30,8 @@ export default [
   { path: '/travel', redirect: '/travel-agent' },
   { path: '/manus-agent', name: 'ManusAgent', component: ManusChat },
   { path: '/manus', redirect: '/manus-agent' },
-  {
-    path: '/blog',
-    name: 'Blog',
-    ...page({
-      eyebrow: 'Scroll Tower',
-      title: 'Engineering Notes',
-      subtitle: 'Architecture writing, debugging notes, and AI engineering reflections.',
-      description: 'This first version keeps the blog route navigable. Future work can connect markdown posts or a lightweight content index.',
-      items: [
-        { title: 'Architecture Notes', text: 'Backend boundaries, Agent orchestration, and product decisions.' },
-        { title: 'Build Logs', text: 'A lightweight place for future technical writing.' }
-      ]
-    })
-  },
+  { path: '/blog', name: 'Blog', component: BlogPage },
+  { path: '/blog/:slug', name: 'BlogPost', component: BlogPostPage },
   {
     path: '/tavern',
     name: 'Tavern',

@@ -12,6 +12,7 @@
         <router-link to="/">Map</router-link>
         <router-link to="/profile">Profile</router-link>
         <router-link to="/projects">Projects</router-link>
+        <router-link to="/blog">Blog</router-link>
         <router-link to="/travel-agent">Travel Agent</router-link>
         <router-link to="/manus-agent">Tool Agent</router-link>
       </nav>
