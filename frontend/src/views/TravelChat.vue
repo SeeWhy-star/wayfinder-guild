@@ -4,7 +4,7 @@
     title="Travel Agent"
     subtitle="Chat with the travel Agent, or request a structured TravelPlan for UI-ready cards."
   >
-    <div class="travel-agent-layout">
+    <div class="travel-agent-layout travel-workbench">
       <section class="travel-chat-column">
         <h2>Streaming Chat</h2>
         <div class="form-actions chat-live-actions">
@@ -40,8 +40,8 @@
         </div>
       </section>
 
-      <section class="structured-plan-column">
-        <h2>Structured Plan</h2>
+      <section class="structured-plan-column plan-document-column">
+        <div class="section-heading"><div><span class="area-kicker">Output document</span><h2>Travel Plan</h2></div><span v-if="planRun" class="run-status">{{ planRun.status }}</span></div>
         <form class="prompt-form" @submit.prevent="generatePlan">
           <textarea
             v-model="planMessage"
@@ -93,7 +93,24 @@
           @score-current-plan="scoreCurrentPlan"
         />
       </section>
+
+      <aside class="run-inspector" aria-label="Agent run inspector">
+        <span class="area-kicker">Run inspector</span>
+        <h2>{{ planRun ? planRun.runId : 'No active run' }}</h2>
+        <dl class="inspector-facts">
+          <div><dt>Mode</dt><dd>{{ planRun?.mode || (canUseLivePlan ? 'LIVE' : 'DEMO') }}</dd></div>
+          <div><dt>Status</dt><dd>{{ planRun?.status || 'IDLE' }}</dd></div>
+          <div><dt>Events</dt><dd>{{ planRun?.events?.length || 0 }}</dd></div>
+          <div v-if="planRun?.evaluation"><dt>Evaluation</dt><dd>{{ planRun.evaluation.result?.score ?? planRun.evaluation.score ?? '—' }}</dd></div>
+        </dl>
+        <div v-if="planRun?.result?.loadedSkills?.length" class="inspector-block"><strong>Loaded skills</strong><div class="skill-list"><span v-for="skill in planRun.result.loadedSkills" :key="skill">{{ skill }}</span></div></div>
+        <div class="inspector-block"><strong>Execution trace</strong><router-link v-if="planChatId" :to="{ path: '/trace', query: { chatId: planChatId } }">Open trace →</router-link><p v-else class="muted-copy">Generate a plan to inspect the run.</p></div>
+      </aside>
     </div>
+    <section v-if="planRun?.events?.length" class="run-timeline">
+      <div class="section-heading"><div><span class="area-kicker">Agent execution</span><h2>Run timeline</h2></div><span class="muted-copy">{{ planRun.events.length }} recorded events</span></div>
+      <ol><li v-for="(event, index) in planRun.events" :key="`${event.timestamp || index}-${index}`"><span class="timeline-index">{{ String(index + 1).padStart(2, '0') }}</span><div><strong>{{ formatEventStep(event.step) }}</strong><p>{{ event.message || event.detail || event.metadata?.source || 'Completed' }}</p></div></li></ol>
+    </section>
   </PageShell>
 </template>
 
@@ -119,6 +136,7 @@ export default {
     return {
       planMessage: DEFAULT_PLAN_MESSAGE,
       plan: null,
+      planRun: null,
       planChatId: '',
       planLoading: false,
       planError: '',
@@ -224,7 +242,8 @@ export default {
       this.savePlanSession()
       try {
         const { data } = await this.requestTravelPlan(this.canUseLivePlan)
-        this.plan = data
+        this.planRun = data?.result ? data : null
+        this.plan = data?.result || data
         this.scoreResult = null
         this.scoreError = ''
         this.savePlanSession()
@@ -236,7 +255,8 @@ export default {
           this.livePlanNotice = 'Live TravelPlan was disabled; showing the demo fixture.'
           try {
             const { data } = await this.requestTravelPlan(false)
-            this.plan = data
+            this.planRun = data?.result ? data : null
+            this.plan = data?.result || data
             this.scoreResult = null
             this.scoreError = ''
             this.savePlanSession()
@@ -256,23 +276,19 @@ export default {
       }
     },
     requestTravelPlan(liveMode) {
-      return api.post(
-        '/travel/plan',
-        {
-          message: this.requestMessage,
-          chatId: this.planChatId,
-          liveMode
-        },
-        {
-          timeout: liveMode ? 120000 : 30000
-        }
-      )
+      const payload = { message: this.requestMessage, chatId: this.planChatId, liveMode }
+      const config = { timeout: liveMode ? 120000 : 30000 }
+      return api.post('/travel/plan/run', payload, config).catch((error) => {
+        if (error?.response?.status === 404 || error?.response?.status === 405) return api.post('/travel/plan', payload, config)
+        throw error
+      })
     },
     clearPlanSession() {
       sessionStorage.removeItem('wayfinder.travel.plan')
       this.stopPlanSessionPolling()
       this.planMessage = DEFAULT_PLAN_MESSAGE
       this.plan = null
+      this.planRun = null
       this.planChatId = ''
       this.planLoading = false
       this.planError = ''
@@ -291,6 +307,7 @@ export default {
         const saved = JSON.parse(raw)
         this.planMessage = saved.lastPrompt || saved.planMessage || this.planMessage
         this.plan = saved.structuredPlan || saved.plan || null
+        this.planRun = saved.run || null
         this.planChatId = saved.chatId || ''
         this.planError = saved.planError || ''
         this.chatDraft = saved.chatDraft || ''
@@ -310,6 +327,7 @@ export default {
         chatId: this.planChatId,
         messages: [],
         structuredPlan: this.plan,
+        run: this.planRun,
         generatedPlan: this.plan,
         taskStatus: this.planLoading ? 'Planning' : this.planError ? 'Failed' : this.plan ? 'Completed' : 'Idle',
         lastPrompt: this.planMessage,
@@ -341,12 +359,14 @@ export default {
         const saved = JSON.parse(raw)
         this.planMessage = saved.lastPrompt || saved.planMessage || this.planMessage
         this.planChatId = saved.chatId || this.planChatId
+        this.planRun = saved.run || this.planRun
         this.chatDraft = saved.chatDraft || this.chatDraft
         this.chatDraftNotice = saved.chatDraftNotice || this.chatDraftNotice
         this.chatDraftLanguage = saved.chatDraftLanguage || this.chatDraftLanguage
         this.activePlanStartedAt = saved.activePlanStartedAt || this.activePlanStartedAt
         if (saved.structuredPlan || saved.plan || saved.planError || saved.taskStatus !== 'Planning') {
           this.plan = saved.structuredPlan || saved.plan || this.plan
+          this.planRun = saved.run || this.planRun
           this.planError = saved.planError || ''
           this.scoreResult = saved.scoreResult || this.scoreResult
           this.scoreError = saved.scoreError || ''
@@ -456,6 +476,9 @@ export default {
         return err.response.data.message
       }
       return 'Could not generate a structured TravelPlan. Check backend and model configuration.'
+    },
+    formatEventStep(step) {
+      return String(step || 'agent.step').replaceAll('_', ' ').toLowerCase().replace(/(^|\\s)\\S/g, (c) => c.toUpperCase())
     },
     travelLocalResponder(text) {
       const language = this.preferredLanguage(text)

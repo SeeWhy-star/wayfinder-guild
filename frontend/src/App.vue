@@ -1,20 +1,20 @@
 <template>
   <div id="app-root">
-    <header class="topbar">
+    <header class="topbar guild-header">
       <router-link class="brand" to="/">
-        <span class="brand-mark">*</span>
+        <span class="brand-mark">WG</span>
         <span>
           <strong>Wayfinder Guild</strong>
-          <small>&#35753; AI &#25214;&#21040;&#27491;&#30830;&#30340;&#36335;</small>
+          <small>an agent field notebook</small>
         </span>
       </router-link>
       <nav aria-label="Main navigation">
-        <router-link to="/">Map</router-link>
-        <router-link to="/profile">Profile</router-link>
-        <router-link to="/projects">Projects</router-link>
-        <router-link to="/blog">Blog</router-link>
-        <router-link to="/travel-agent">Travel Agent</router-link>
-        <router-link to="/manus-agent">Tool Agent</router-link>
+        <router-link to="/">Guild</router-link>
+        <router-link to="/projects">Archive</router-link>
+        <router-link to="/travel-agent">Travel Cabin</router-link>
+        <router-link to="/manus-agent">Workshop</router-link>
+        <router-link to="/blog">Journal</router-link>
+        <router-link to="/profile">About</router-link>
       </nav>
       <form class="owner-token-form" @submit.prevent="saveOwnerToken">
         <input

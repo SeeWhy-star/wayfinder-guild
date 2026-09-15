@@ -1,5 +1,5 @@
 <template>
-  <section class="page-shell">
+  <section :class="['page-shell', `page-shell-${variant}`]">
     <router-link v-if="back" class="back-link" to="/">&lt;- Back to Wayfinder Guild</router-link>
     <p class="eyebrow">{{ eyebrow }}</p>
     <div class="page-title-row">
@@ -20,7 +20,8 @@ export default {
     eyebrow: { type: String, default: 'Wayfinder Guild' },
     title: { type: String, required: true },
     subtitle: { type: String, default: '' },
-    back: { type: Boolean, default: true }
+    back: { type: Boolean, default: true },
+    variant: { type: String, default: 'workbench' }
   }
 }
 </script>
