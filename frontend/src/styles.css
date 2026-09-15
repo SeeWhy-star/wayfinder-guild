@@ -2876,3 +2876,103 @@ main { width: min(1160px, calc(100vw - 32px)); padding: 42px 0 72px; }
 .run-timeline p { color:var(--muted-ink); font-size:.72rem; margin:.25rem 0 0; line-height:1.4; }
 @media (max-width: 980px) { .run-inspector { position:static; border-left:0; border-top:1px solid var(--line); padding:1rem 0 0; } .run-timeline ol { grid-template-columns:repeat(2,1fr); } .run-timeline li:nth-child(2n) { border-right:0; } }
 @media (max-width: 640px) { .run-timeline ol { grid-template-columns:1fr; } .run-timeline li { border-right:0; border-bottom:1px solid var(--line); } }
+
+/* Final notebook theme contract. Legacy dark-theme rules above are kept for history,
+   but every rendered paper component is normalized here in one predictable layer. */
+:root {
+  --text-primary: #292722;
+  --text-secondary: #5f5a51;
+  --text-tertiary: #7a7368;
+  --surface: #fffdf8;
+  --surface-muted: #eee6d9;
+  --accent-text: #4d6a5d;
+  --accent-warm: #a95136;
+}
+
+body, button, input, textarea, select { color: var(--text-primary); }
+button, input, textarea, select { font: inherit; }
+.page-shell, .portfolio-page, .chat-page, .rpg-home { color: var(--text-primary); }
+.page-shell p, .portfolio-page p, .chat-page p, .rpg-home p,
+.page-shell li, .portfolio-page li, .chat-page li, .rpg-home li { color: var(--text-secondary); }
+.page-shell h1, .page-shell h2, .page-shell h3,
+.portfolio-page h1, .portfolio-page h2, .portfolio-page h3,
+.chat-page h1, .chat-page h2, .chat-page h3,
+.rpg-home h1, .rpg-home h2, .rpg-home h3 { color: var(--text-primary); }
+.eyebrow, .area-kicker, .case-card-kicker, .architecture-kicker { color: var(--accent-warm); }
+.back-link, .card-meta, .blog-card-meta, .runtime-meta, .timeline-head span,
+.timeline-item small, .metadata-grid dt, .profile-facts dt, .hero-facts dt { color: var(--accent-text); }
+
+.case-card, .case-study-card, .star-card, .page-panel, .chat-root, .area-card,
+.blog-card, .blog-post, .lighthouse-panel, .architecture-panel, .runtime-card,
+.status-card, .tool-prompt-board, .eval-run-panel, .state-block {
+  color: var(--text-primary);
+  border-color: var(--line);
+  background: var(--surface);
+  box-shadow: var(--shadow);
+}
+.case-card h3, .case-study-card h2, .star-card h2, .page-panel h2,
+.area-card h2, .blog-card h2, .blog-card h2 a, .blog-content h2,
+.blog-post h1, .blog-post h2, .blog-post h3, .lighthouse-panel strong,
+.architecture-panel h2, .architecture-panel h3, .runtime-card strong,
+.request-step strong, .boundary-node strong, .quality-step strong,
+.support-layer strong, .guardrail-layer strong, .status-card h2,
+.eval-score-row h2, .eval-input-block strong, .budget-item strong,
+.itinerary-list summary strong, .activity-heading strong { color: var(--text-primary); }
+.case-card p, .case-study-card p, .star-card .card-description, .page-panel p,
+.area-card p, .blog-card p, .blog-content p, .blog-content li, .blog-post p,
+.blog-post li, .lighthouse-panel p, .architecture-panel p, .runtime-card p,
+.request-step p, .boundary-node p, .quality-step p, .support-layer p,
+.guardrail-layer p, .eval-input-block p, .budget-item p, .day-details p,
+.activity-list p, .rag-demo-note, .draft-notice, .feature-list li, .mini-list li { color: var(--text-secondary); }
+.case-study-focus, .tagline { color: var(--accent-warm); }
+
+.tag, .case-study-card .tag, .blog-card .tag, .request-step .tag, .runtime-card .tag {
+  color: var(--accent-text); border-color: #afc0b3; background: #edf2eb;
+}
+.blog-card-meta span, .rarity, .match-badge { color: var(--accent-text); border-color: #afc0b3; background: #edf2eb; }
+.blog-card h2 a:hover, .blog-read-link:hover, .blog-index-link:hover { color: var(--accent-warm); }
+.blog-read-link, .case-card-actions .case-primary-link, .card-actions a:first-child,
+.area-card button, .prompt-form button, .chat-footer button { color: #fffaf0; background: var(--accent-warm); border-color: var(--accent-warm); }
+.blog-read-link:hover, .area-card button:hover, .prompt-form button:hover, .chat-footer button:hover { color: #fffaf0; background: var(--text-primary); border-color: var(--text-primary); }
+.home-note p, .home-note h2 { color: var(--text-primary); }
+
+.prompt-form, .inline-form, .chat-draft-action, .eval-input-block,
+.budget-item, .itinerary-list > article, .activity-list > article,
+.match-result, .support-layer, .milestone { border-color: var(--paper-deep); background: var(--surface-muted); }
+.prompt-form textarea, .chat-footer input, .inline-form input, .eval-case-select {
+  color: var(--text-primary); border-color: var(--line); background: var(--surface);
+}
+.prompt-form textarea::placeholder, .chat-footer input::placeholder, .inline-form input::placeholder { color: var(--text-tertiary); }
+.prompt-form textarea:focus, .chat-footer input:focus, .inline-form input:focus, .eval-case-select:focus { border-color: var(--accent-text); outline: 2px solid rgba(77,106,93,.16); }
+.chat-header, .chat-body, .chat-footer { border-color: var(--line); }
+.chat-header strong, .chat-header span, .empty-chat { color: var(--text-secondary); }
+.msg.user .bubble { color: #fffaf0; background: var(--accent-text); }
+.msg.assistant .bubble { color: var(--text-primary); background: var(--surface-muted); border-color: var(--paper-deep); }
+
+.blog-content pre { color: #f5f0e5; background: #293238; border-color: #4a5b5e; }
+.blog-callout { color: var(--text-primary); background: #f4e5c9; border-left-color: var(--accent-warm); }
+.architecture-badge, .status-pill, .runtime-status { color: #fffaf0; }
+.run-status, .inspector-facts div, .run-timeline li { color: var(--text-secondary); }
+.run-timeline strong, .inspector-block strong { color: var(--text-primary); }
+.architecture-panel, .tool-demo-intro, .tool-prompt-board, .capability-panel,
+.status-card, .trace-panel, .lighthouse-panel, .eval-run-panel { background: var(--surface); }
+.architecture-panel::before { background: var(--rust); }
+.request-step, .boundary-node, .quality-step, .task-state-grid div,
+.capability-list-grid section, .execution-flow-list li { color: var(--text-primary); border-color: var(--paper-deep); background: var(--surface-muted); }
+.architecture-section-head h2, .prompt-group-head strong, .status-card h2,
+.execution-flow-list li, .task-state-grid dd { color: var(--text-primary); }
+.architecture-kicker, .prompt-group-head span, .task-state-grid dt,
+.support-layer span, .demo-tool-button small { color: var(--accent-text); }
+.architecture-badge, .architecture-badge.live-boundary, .capability-strip span,
+.capability-strip span.boundary { color: var(--accent-text); border-color: #afc0b3; background: #edf2eb; }
+.request-step p, .boundary-node p, .quality-step p, .tool-demo-intro p,
+.tool-demo-intro p + p, .prompt-copy, .prompt-copy.zh { color: var(--text-secondary); }
+.prompt-group, .prompt-group.live, .prompt-group.stable-demo, .prompt-group.boundary-demo,
+.prompt-group.flow-demo, .demo-tool-button, .live-example-button { border-color: var(--paper-deep); background: var(--surface-muted); color: var(--text-primary); }
+.demo-tool-button strong, .demo-tool-button:hover { color: var(--text-primary); }
+.execution-flow-list li::before { color: #fffaf0; background: var(--accent-text); }
+.task-state-grid div, .capability-list-grid section { border: 1px solid var(--paper-deep); }
+.eval-score-row h2, .eval-input-block strong, .eval-input-block p { color: var(--text-primary); }
+.score-chip.pass { color: #fffaf0; background: var(--accent-text); }
+.score-chip.fail { color: #fffaf0; background: var(--accent-warm); }
+.rule-result-sample, .eval-case-select { color: var(--text-primary); border-color: var(--line); background: var(--surface); }
