@@ -7,9 +7,6 @@ import org.springframework.boot.test.context.SpringBootTest;
         "spring.ai.openai.api-key=test-key",
         "wayfinder.demo.enabled=true",
         "travel.rag.mode=demo",
-        "springdoc.api-docs.enabled=false",
-        "springdoc.swagger-ui.enabled=false",
-        "knife4j.enable=false"
 })
 class SyAiAgentApplicationTests {
 

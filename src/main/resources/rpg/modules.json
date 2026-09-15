@@ -5,7 +5,7 @@
     "displayName": "Agentic Travel Backend",
     "description": "The core travel-planning backend for conversations, structured plans, reports, RAG, and tool collaboration.",
     "capabilities": ["chat", "structured-plan", "report-generation", "rag", "tool-calling"],
-    "endpoints": ["/api/travel/chat", "/api/travel/plan", "/api/travel/report", "/api/travel/rag"],
+    "endpoints": ["/api/travel/chat", "/api/travel/plan", "/api/travel/rag"],
     "relatedProjectIds": ["wayfinder-guild"]
   },
   {

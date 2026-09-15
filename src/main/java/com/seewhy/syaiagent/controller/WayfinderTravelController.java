@@ -3,14 +3,12 @@ package com.seewhy.syaiagent.controller;
 import com.seewhy.syaiagent.app.WayfinderTravelFacade;
 import com.seewhy.syaiagent.model.ChatRequest;
 import com.seewhy.syaiagent.model.ChatResponse;
+import com.seewhy.syaiagent.model.AgentRun;
 import com.seewhy.syaiagent.model.HealthResponse;
-import com.seewhy.syaiagent.model.QuickRequest;
 import com.seewhy.syaiagent.model.RagExplainRequest;
 import com.seewhy.syaiagent.model.RagExplainResponse;
 import com.seewhy.syaiagent.model.TravelPlan;
 import com.seewhy.syaiagent.model.TravelPlanRequest;
-import com.seewhy.syaiagent.model.TravelReport;
-import com.seewhy.syaiagent.service.SseEmitterStreamService;
 import com.seewhy.syaiagent.service.TravelRagService;
 import com.seewhy.syaiagent.service.WayfinderDemoService;
 import com.seewhy.syaiagent.security.OwnerAccessService;
@@ -18,9 +16,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.MediaType;
-import org.springframework.http.codec.ServerSentEvent;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.mvc.method.annotation.SseEmitter;
 import reactor.core.publisher.Flux;
 
 import java.util.UUID;
@@ -31,18 +27,15 @@ import java.util.UUID;
 public class WayfinderTravelController {
 
     private final WayfinderTravelFacade wayfinderTravelFacade;
-    private final SseEmitterStreamService sseEmitterStreamService;
     private final TravelRagService travelRagService;
     private final WayfinderDemoService wayfinderDemoService;
     private final OwnerAccessService ownerAccessService;
 
     public WayfinderTravelController(WayfinderTravelFacade wayfinderTravelFacade,
-                                     SseEmitterStreamService sseEmitterStreamService,
                                      TravelRagService travelRagService,
                                      WayfinderDemoService wayfinderDemoService,
                                      OwnerAccessService ownerAccessService) {
         this.wayfinderTravelFacade = wayfinderTravelFacade;
-        this.sseEmitterStreamService = sseEmitterStreamService;
         this.travelRagService = travelRagService;
         this.wayfinderDemoService = wayfinderDemoService;
         this.ownerAccessService = ownerAccessService;
@@ -85,47 +78,6 @@ public class WayfinderTravelController {
     }
 
     /**
-     * 兼容 AiController 的同步 GET 接口（query 参数）
-     */
-    @GetMapping("/chat/sync")
-    public String doChatSync(@RequestParam String message, @RequestParam(required = false) String chatId) {
-        validateMessage(message);
-        String id = normalizeChatId(chatId);
-        return wayfinderTravelFacade.doChat(message, id);
-    }
-
-    @GetMapping(value = "/chat/sse", produces = MediaType.TEXT_EVENT_STREAM_VALUE)
-    public SseEmitter doChatSse(@RequestParam String message, @RequestParam(required = false) String chatId) {
-        validateMessage(message);
-        return createChatEmitter(message, chatId, "chat/sse");
-    }
-
-    @GetMapping(value = "/chat/server_sent_event")
-    public Flux<ServerSentEvent<String>> doChatServerSentEvent(@RequestParam String message, @RequestParam(required = false) String chatId) {
-        validateMessage(message);
-        String id = normalizeChatId(chatId);
-        return wayfinderTravelFacade.doChatByStream(message, id)
-            .doOnCancel(() -> log.info("SSE server_sent_event cancelled for {}", id))
-            .onErrorContinue((err, obj) -> log.debug("SSE server_sent_event error ignored for {}: {}", id, err.toString()))
-            .map(chunk -> ServerSentEvent.<String>builder().data(chunk).build());
-    }
-
-    @GetMapping(value = "/chat/sse_emitter")
-    public SseEmitter doChatSseEmitter(@RequestParam String message, @RequestParam(required = false) String chatId) {
-        validateMessage(message);
-        return createChatEmitter(message, chatId, "chat/sse_emitter");
-    }
-
-    /**
-     * 生成旅行规划报告
-     */
-    @PostMapping("/report")
-    public TravelReport generateReport(@Valid @RequestBody ChatRequest request) {
-        String chatId = normalizeChatId(request.getChatId());
-        return wayfinderTravelFacade.doChatWithReport(request.getMessage(), chatId);
-    }
-
-    /**
      * 结构化旅行规划
      */
     @PostMapping("/plan")
@@ -142,6 +94,22 @@ public class WayfinderTravelController {
             );
         }
         return wayfinderDemoService.demoTravelPlan();
+    }
+
+    @PostMapping("/plan/run")
+    public AgentRun<TravelPlan> generatePlanRun(@Valid @RequestBody TravelPlanRequest request,
+                                                HttpServletRequest httpRequest) {
+        String chatId = normalizeChatId(request.chatId());
+        if (!Boolean.TRUE.equals(request.liveMode())) {
+            return wayfinderDemoService.demoTravelRun(chatId);
+        }
+        if (!ownerAccessService.hasOwnerAccess(httpRequest)) {
+            throw new org.springframework.web.server.ResponseStatusException(
+                    org.springframework.http.HttpStatus.FORBIDDEN,
+                    "Owner token required for live TravelPlan generation."
+            );
+        }
+        return wayfinderTravelFacade.runStructuredPlan(request.message(), chatId);
     }
 
     /**
@@ -167,14 +135,6 @@ public class WayfinderTravelController {
     }
 
     /**
-     * 快速旅行咨询
-     */
-    @PostMapping("/quick")
-    public String quickConsult(@Valid @RequestBody QuickRequest request) {
-        return wayfinderTravelFacade.quickTravelConsult(request.getMessage());
-    }
-
-    /**
      * 获取系统信息
      */
     @GetMapping("/system/info")
@@ -196,11 +156,6 @@ public class WayfinderTravelController {
 
     private String normalizeChatId(String chatId) {
         return chatId != null && !chatId.isBlank() ? chatId : generateChatId();
-    }
-
-    private SseEmitter createChatEmitter(String message, String chatId, String logName) {
-        String id = normalizeChatId(chatId);
-        return sseEmitterStreamService.stream(id, logName, wayfinderTravelFacade.doChatByStream(message, id));
     }
 
     private void validateMessage(String message) {

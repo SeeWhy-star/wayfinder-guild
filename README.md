@@ -134,7 +134,6 @@ Public production should use server-side environment variables, not committed lo
 | `PEXELS_API_KEY` | Optional image search / MCP key. |
 | `AMAP_MAPS_API_KEY` | Optional AMap MCP key. |
 | `WAYFINDER_CORS_ALLOWED_ORIGIN_PATTERNS` | Comma-separated allowed frontend origins. |
-| `SPRINGDOC_API_DOCS_ENABLED`, `SPRINGDOC_SWAGGER_UI_ENABLED`, `KNIFE4J_ENABLE` | Keep `false` in public deployment unless deliberately exposing API docs. |
 
 Local secret templates:
 
@@ -171,7 +170,7 @@ Base path: `/api`
 | `/travel/chat` | POST | Sync travel chat. |
 | `/travel/chat/stream` | GET | SSE travel chat stream. |
 | `/travel/plan` | POST | Structured `TravelPlan`. |
-| `/travel/report` | POST | Structured travel report. |
+| `/travel/plan/run` | POST | Unified Agent Run envelope with result, status, mode, and trace. |
 | `/travel/rag` | POST | RAG answer. |
 | `/travel/rag/explain` | POST | RAG answer with retrieved documents. |
 | `/travel/manus/chat` | GET | SyManus tool-agent stream. |
@@ -220,9 +219,6 @@ SPRING_PROFILES_ACTIVE=prod
 WAYFINDER_DEMO_ENABLED=true
 TRAVEL_RAG_MODE=demo
 WAYFINDER_CORS_ALLOWED_ORIGIN_PATTERNS=https://your-domain.example
-SPRINGDOC_API_DOCS_ENABLED=false
-SPRINGDOC_SWAGGER_UI_ENABLED=false
-KNIFE4J_ENABLE=false
 LOGGING_LEVEL_ORG_SPRINGFRAMEWORK_AI=INFO
 LOGGING_LEVEL_COM_SEEWHY_SYAIAGENT=INFO
 ```

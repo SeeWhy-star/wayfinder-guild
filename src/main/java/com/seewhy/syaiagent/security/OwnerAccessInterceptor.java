@@ -62,13 +62,6 @@ public class OwnerAccessInterceptor implements HandlerInterceptor {
         if (is(method, HttpMethod.GET) && path.equals("/travel/chat/stream")) {
             return false;
         }
-        if (is(method, HttpMethod.GET) && (
-                path.equals("/travel/chat/sync")
-                        || path.equals("/travel/chat/sse")
-                        || path.equals("/travel/chat/server_sent_event")
-                        || path.equals("/travel/chat/sse_emitter"))) {
-            return true;
-        }
         if (is(method, HttpMethod.POST) && path.equals("/travel/report")) {
             return true;
         }
@@ -80,9 +73,6 @@ public class OwnerAccessInterceptor implements HandlerInterceptor {
         }
         if (is(method, HttpMethod.POST) && path.equals("/travel/rag/explain")) {
             return false;
-        }
-        if (is(method, HttpMethod.POST) && path.equals("/travel/quick")) {
-            return true;
         }
         if (is(method, HttpMethod.GET) && path.equals("/travel/system/info")) {
             return true;

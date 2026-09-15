@@ -1,14 +1,13 @@
 package com.seewhy.syaiagent.app;
 
 import com.seewhy.syaiagent.constant.WayfinderPromptConstant;
+import com.seewhy.syaiagent.model.AgentRun;
 import com.seewhy.syaiagent.model.TravelPlan;
-import com.seewhy.syaiagent.model.TravelReport;
 import com.seewhy.syaiagent.orchestrator.TravelOrchestratorService;
 import com.seewhy.syaiagent.service.TravelChatService;
-import com.seewhy.syaiagent.service.TravelMcpService;
 import com.seewhy.syaiagent.service.TravelRagService;
-import com.seewhy.syaiagent.service.TravelReportService;
-import com.seewhy.syaiagent.service.TravelToolService;
+import com.seewhy.syaiagent.service.AgentRunEvaluationService;
+import com.seewhy.syaiagent.trace.AgentTraceService;
 import org.springframework.stereotype.Component;
 import reactor.core.publisher.Flux;
 
@@ -16,24 +15,21 @@ import reactor.core.publisher.Flux;
 public class WayfinderTravelFacade {
 
     private final TravelChatService travelChatService;
-    private final TravelReportService travelReportService;
     private final TravelRagService travelRagService;
-    private final TravelToolService travelToolService;
-    private final TravelMcpService travelMcpService;
     private final TravelOrchestratorService travelOrchestratorService;
+    private final AgentTraceService agentTraceService;
+    private final AgentRunEvaluationService agentRunEvaluationService;
 
     public WayfinderTravelFacade(TravelChatService travelChatService,
-                                 TravelReportService travelReportService,
                                  TravelRagService travelRagService,
-                                 TravelToolService travelToolService,
-                                 TravelMcpService travelMcpService,
-                                 TravelOrchestratorService travelOrchestratorService) {
+                                 TravelOrchestratorService travelOrchestratorService,
+                                 AgentTraceService agentTraceService,
+                                 AgentRunEvaluationService agentRunEvaluationService) {
         this.travelChatService = travelChatService;
-        this.travelReportService = travelReportService;
         this.travelRagService = travelRagService;
-        this.travelToolService = travelToolService;
-        this.travelMcpService = travelMcpService;
         this.travelOrchestratorService = travelOrchestratorService;
+        this.agentTraceService = agentTraceService;
+        this.agentRunEvaluationService = agentRunEvaluationService;
     }
 
     public String doChat(String message, String chatId) {
@@ -44,28 +40,18 @@ public class WayfinderTravelFacade {
         return travelChatService.streamChat(message, chatId);
     }
 
-    public TravelReport doChatWithReport(String message, String chatId) {
-        return travelReportService.generateReport(message, chatId);
-    }
-
     public TravelPlan doStructuredPlan(String message, String chatId) {
         return travelOrchestratorService.generatePlan(message, chatId);
     }
 
+    public AgentRun<TravelPlan> runStructuredPlan(String message, String chatId) {
+        TravelPlan result = doStructuredPlan(message, chatId);
+        return AgentRun.completed(chatId, "LIVE", result, agentTraceService.getEvents(chatId),
+                agentRunEvaluationService.evaluateTravelRun(message, result));
+    }
+
     public String doChatWithRag(String message, String chatId) {
         return travelRagService.chatWithRag(message, chatId);
-    }
-
-    public String doChatWithTools(String message, String chatId) {
-        return travelToolService.chatWithTools(message, chatId);
-    }
-
-    public String doChatWithMcp(String message, String chatId) {
-        return travelMcpService.chatWithMcp(message, chatId);
-    }
-
-    public String quickTravelConsult(String message) {
-        return doChat(message, "quick-" + System.currentTimeMillis());
     }
 
     public String getSystemInfo() {

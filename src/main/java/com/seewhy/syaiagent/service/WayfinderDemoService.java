@@ -4,6 +4,7 @@ import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.seewhy.syaiagent.eval.TravelEvalRuleResult;
 import com.seewhy.syaiagent.model.RagExplainResponse;
+import com.seewhy.syaiagent.model.AgentRun;
 import com.seewhy.syaiagent.model.TravelPlan;
 import com.seewhy.syaiagent.model.rpg.RpgEvalRunResponse;
 import com.seewhy.syaiagent.model.rpg.RpgEvalSampleResult;
@@ -50,6 +51,11 @@ public class WayfinderDemoService {
 
     public TravelPlan demoTravelPlan() {
         return demoTravelPlan;
+    }
+
+    public AgentRun<TravelPlan> demoTravelRun(String chatId) {
+        String id = chatId == null || chatId.isBlank() ? "demo-kyoto-family" : chatId;
+        return AgentRun.completed(id, "DEMO", demoTravelPlan, demoTrace(id), null);
     }
 
     public Flux<String> demoChatStream(String message, String chatId) {

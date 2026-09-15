@@ -93,6 +93,7 @@ Travel APIs:
 - `POST /api/travel/chat`
 - `GET /api/travel/chat/stream`
 - `POST /api/travel/plan`
+- `POST /api/travel/plan/run`
 - `POST /api/travel/rag`
 - `POST /api/travel/rag/explain`
 - `GET /api/travel/trace/{chatId}`

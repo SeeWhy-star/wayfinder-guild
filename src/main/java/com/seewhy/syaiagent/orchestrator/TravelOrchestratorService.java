@@ -41,9 +41,7 @@ public class TravelOrchestratorService {
         TravelRequirement requirement = requirementCollectorService.collect(message);
         agentTraceService.record(chatId, AgentTraceStep.USER_INTENT_RECOGNITION, AgentTraceStatus.COMPLETED, "RequirementCollector completed.", requirementMetadata(requirement));
 
-        TravelPlan planned = switch (requirement.taskType()) {
-            case STRUCTURED_PLAN, REPORT -> itineraryPlannerService.plan(requirement, chatId);
-        };
+        TravelPlan planned = itineraryPlannerService.plan(requirement, chatId);
 
         agentTraceService.record(chatId, AgentTraceStep.BUDGET_CHECK, AgentTraceStatus.STARTED, "BudgetEstimator is checking budget structure.");
         TravelPlan budgetChecked = budgetEstimatorService.estimate(planned);

@@ -134,7 +134,6 @@ npm run dev
 | `PEXELS_API_KEY` | 可选图片搜索 / MCP key。 |
 | `AMAP_MAPS_API_KEY` | 可选高德 MCP key。 |
 | `WAYFINDER_CORS_ALLOWED_ORIGIN_PATTERNS` | 允许跨域访问的前端域名，多个值用英文逗号分隔。 |
-| `SPRINGDOC_API_DOCS_ENABLED`, `SPRINGDOC_SWAGGER_UI_ENABLED`, `KNIFE4J_ENABLE` | 公开部署保持 `false`，受控演示再开启。 |
 
 本地敏感配置模板：
 
@@ -171,7 +170,7 @@ RAG 模式：
 | `/travel/chat` | POST | 同步旅行对话。 |
 | `/travel/chat/stream` | GET | SSE 旅行对话。 |
 | `/travel/plan` | POST | 结构化 `TravelPlan`。 |
-| `/travel/report` | POST | 结构化旅行报告。 |
+| `/travel/plan/run` | POST | 统一 Agent Run envelope（结果、状态、模式、Trace）。 |
 | `/travel/rag` | POST | RAG 问答。 |
 | `/travel/rag/explain` | POST | 带检索文档的 RAG 问答。 |
 | `/travel/manus/chat` | GET | SyManus 工具 Agent 流式对话。 |
@@ -220,9 +219,6 @@ SPRING_PROFILES_ACTIVE=prod
 WAYFINDER_DEMO_ENABLED=true
 TRAVEL_RAG_MODE=demo
 WAYFINDER_CORS_ALLOWED_ORIGIN_PATTERNS=https://your-domain.example
-SPRINGDOC_API_DOCS_ENABLED=false
-SPRINGDOC_SWAGGER_UI_ENABLED=false
-KNIFE4J_ENABLE=false
 LOGGING_LEVEL_ORG_SPRINGFRAMEWORK_AI=INFO
 LOGGING_LEVEL_COM_SEEWHY_SYAIAGENT=INFO
 ```

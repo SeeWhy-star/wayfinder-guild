@@ -256,10 +256,6 @@ public class RequirementCollectorService {
     }
 
     private TravelTaskType detectTaskType(String message) {
-        String lower = message.toLowerCase(Locale.ROOT);
-        if (lower.contains("报告") || lower.contains("report")) {
-            return TravelTaskType.REPORT;
-        }
         return TravelTaskType.STRUCTURED_PLAN;
     }
 

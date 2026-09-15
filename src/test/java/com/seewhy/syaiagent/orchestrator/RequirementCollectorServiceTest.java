@@ -62,7 +62,7 @@ class RequirementCollectorServiceTest {
         TravelRequirement requirement = service.collect("帮我生成一个旅行报告");
 
         assertTrue(requirement.travelRelated());
-        assertEquals(TravelTaskType.REPORT, requirement.taskType());
+        assertEquals(TravelTaskType.STRUCTURED_PLAN, requirement.taskType());
         assertFalse(requirement.missingFields().isEmpty());
     }
 

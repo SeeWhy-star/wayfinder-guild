@@ -39,15 +39,6 @@ wayfinder:
   cors:
     allowed-origin-patterns: ${WAYFINDER_CORS_ALLOWED_ORIGIN_PATTERNS:http://localhost:5173}
 
-springdoc:
-  api-docs:
-    enabled: ${SPRINGDOC_API_DOCS_ENABLED:true}
-  swagger-ui:
-    enabled: ${SPRINGDOC_SWAGGER_UI_ENABLED:true}
-
-knife4j:
-  enable: ${KNIFE4J_ENABLE:true}
-
 logging:
   level:
     org.springframework.ai: ${LOGGING_LEVEL_ORG_SPRINGFRAMEWORK_AI:DEBUG}

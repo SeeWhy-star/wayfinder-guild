@@ -21,9 +21,6 @@
 | `WAYFINDER_DEMO_ENABLED` | 公开部署建议为 `true`，Owner Live 模式再改为 `false` |
 | `TRAVEL_RAG_MODE` | `demo` / `lightweight` / `pgvector`，公开部署建议 `demo` 或 `lightweight` |
 | `WAYFINDER_CORS_ALLOWED_ORIGIN_PATTERNS` | 允许跨域访问的前端域名，多个值用英文逗号分隔 |
-| `SPRINGDOC_API_DOCS_ENABLED` | 是否开启 OpenAPI JSON，公开部署建议 `false` |
-| `SPRINGDOC_SWAGGER_UI_ENABLED` | 是否开启 Swagger UI，公开部署建议 `false` |
-| `KNIFE4J_ENABLE` | 是否开启 Knife4j，公开部署建议 `false` |
 
 示例（Windows PowerShell）：
 
@@ -46,7 +43,6 @@ $env:TRAVEL_RAG_MODE = "lightweight"
 
 主应用不再默认加载 `local` profile。需要读取本地 `application-local.yml` 时，请显式设置 `SPRING_PROFILES_ACTIVE=local`。`sy-image-search-mcp` 默认使用 `sse` profile；如需加载本地密钥示例文件，请设置 `MCP_SPRING_PROFILES_ACTIVE=sse,local`。
 
-**MCP 高德地图**：`mcp-servers.json` 中已移除密钥。启用 amap-maps 时，请在启动主应用前设置环境变量 `AMAP_MAPS_API_KEY`，子进程会继承该环境变量。
 
 ## 已脱敏内容
 

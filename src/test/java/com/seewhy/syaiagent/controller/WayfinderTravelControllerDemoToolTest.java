@@ -9,7 +9,6 @@ import com.seewhy.syaiagent.model.DemoArtifactResponse;
 import com.seewhy.syaiagent.service.ArtifactDeliveryService;
 import com.seewhy.syaiagent.service.CapabilityStatusService;
 import com.seewhy.syaiagent.service.DemoArtifactService;
-import com.seewhy.syaiagent.service.SseEmitterStreamService;
 import com.seewhy.syaiagent.service.SyManusArtifactLinkService;
 import com.seewhy.syaiagent.service.SyManusDemoToolService;
 import com.seewhy.syaiagent.service.SyManusRecordedDemoToolService;
@@ -321,7 +320,6 @@ class WayfinderTravelControllerDemoToolTest {
         );
         WayfinderTravelController controller = new WayfinderTravelController(
                 facade,
-                mock(SseEmitterStreamService.class),
                 mock(TravelRagService.class),
                 demoService,
                 new OwnerAccessService("")
