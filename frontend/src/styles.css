@@ -2819,6 +2819,22 @@ main { width: min(1160px, calc(100vw - 32px)); padding: 42px 0 72px; }
 .prompt-form textarea:focus, .chat-footer input:focus, .inline-form input:focus { border-color: var(--moss); outline: 2px solid rgba(89,114,103,.15); }
 .demo-question-rail button { border: 1px solid var(--line); border-radius: 4px; color: var(--ink); background: transparent; }
 .demo-question-rail button:hover { color: var(--paper); background: var(--ink); }
+.blog-card { border-color: var(--line); border-radius: 5px; color: var(--ink); background: rgba(255,253,248,.78); box-shadow: var(--shadow); }
+.blog-card-meta { color: var(--moss); }
+.blog-card-meta span { border-color: rgba(89,114,103,.35); background: rgba(89,114,103,.08); color: var(--moss); }
+.blog-card h2, .blog-card h2 a { color: var(--ink); }
+.blog-card p { color: var(--muted-ink); }
+.blog-card .tag { color: var(--moss); border-color: rgba(89,114,103,.45); background: rgba(89,114,103,.08); }
+.blog-read-link { color: var(--paper); border-color: var(--rust); background: var(--rust); }
+.blog-read-link:hover { color: var(--paper); background: var(--ink); border-color: var(--ink); }
+.blog-post-shell .blog-post, .blog-post-shell .blog-post h1, .blog-post-shell .blog-post h2, .blog-post-shell .blog-post h3 { color: var(--ink); }
+.blog-post-shell .blog-post p, .blog-post-shell .blog-post li { color: var(--muted-ink); }
+.blog-post-shell .blog-post code { color: var(--ink); background: var(--paper-deep); }
+.draft-notice, .chat-draft-action p, .chat-draft-action strong { color: var(--muted-ink); }
+.budget-item strong, .itinerary-list summary strong, .activity-heading strong { color: var(--ink); }
+.budget-item p, .day-details p, .activity-list p { color: var(--muted-ink); }
+.itinerary-list summary span, .activity-heading span, .activity-meta { color: var(--moss); }
+.feature-list li, .mini-list li { color: var(--muted-ink); }
 .timeline-item { border-color: var(--line); }
 .timeline-dot { border: 2px solid var(--paper); background: var(--moss); box-shadow: 0 0 0 1px var(--moss); }
 .timeline-item.completed .timeline-dot { background: var(--moss); }
