@@ -2784,9 +2784,25 @@ main { width: min(1160px, calc(100vw - 32px)); padding: 42px 0 72px; }
 .quick-routes span { color: var(--ink); }
 .quick-routes small { color: var(--muted-ink); }
 
+/* Keep the case-study page in the same readable paper system as the shell. */
+.case-study-card { border-color: var(--line); border-radius: 5px; color: var(--ink); background: rgba(255,253,248,.72); box-shadow: var(--shadow); }
+.case-study-card h2 { color: var(--ink); font-family: Georgia, "Times New Roman", serif; }
+.case-study-card .card-description, .case-study-card p { color: var(--muted-ink); }
+.case-study-card .case-study-focus { color: var(--rust); }
+.case-study-card .card-meta, .case-study-card .rarity { color: var(--muted-ink); }
+.case-study-card .rarity { border-color: var(--line); background: var(--paper-deep); }
+.case-study-card .feature-list li { color: var(--muted-ink); }
+.case-study-card .card-actions a { color: var(--ink); border-color: var(--line); background: transparent; }
+.case-study-card .card-actions a:first-child { color: var(--paper); background: var(--rust); border-color: var(--rust); }
+.case-study-card .tag { color: var(--moss); border-color: rgba(89,114,103,.45); background: rgba(89,114,103,.08); }
+.milestone, .compact-list article { border: 1px solid var(--paper-deep); border-radius: 3px; background: rgba(232,223,208,.35); }
+.milestone strong, .compact-list strong { color: var(--ink); }
+.milestone span, .compact-list p { color: var(--muted-ink); }
+
 .map-shell { gap: 22px; }
 .game-container { min-height: 620px; border: 2px solid var(--ink); border-radius: 5px; background: var(--night); box-shadow: 7px 7px 0 var(--ink); }
-.area-card { padding: 22px; align-self: stretch; }
+.area-card { padding: 26px 24px; align-self: stretch; border-left: 3px solid var(--rust); }
+.area-card h2 { font-size: clamp(28px, 3vw, 42px); }
 .area-card button, .chat-footer button, .prompt-form button { border-radius: 4px; color: var(--paper); background: var(--rust); }
 
 .star-card { padding: 20px; box-shadow: var(--shadow); }
